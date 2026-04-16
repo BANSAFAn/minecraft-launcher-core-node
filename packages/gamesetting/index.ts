@@ -483,3 +483,20 @@ export function stringify(
 }
 
 export type GameSetting = ReturnType<typeof getDefaultFrame>
+
+/**
+ * Decode unicode escape sequences in a string (e.g., \u0026 -> &)
+ */
+export function decodeUnicodeEscapes(str: string): string {
+  return str.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) => String.fromCharCode(Number.parseInt(hex, 16)))
+}
+
+/**
+ * Encode unicode characters as escape sequences (e.g., & -> \u0026)
+ */
+export function encodeUnicodeEscapes(str: string): string {
+  return str.replace(/[\u0080-\uffff]/g, (char) => {
+    const code = char.charCodeAt(0)
+    return `\\u${code.toString(16).padStart(4, '0')}`
+  })
+}
