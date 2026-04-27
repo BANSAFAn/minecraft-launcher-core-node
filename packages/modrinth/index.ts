@@ -185,7 +185,7 @@ export interface ModrinthClientOptions {
   /**
    * The fetch function to use
    */
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 /**
@@ -193,13 +193,13 @@ export interface ModrinthClientOptions {
  */
 export class ModrinthV2Client {
   private baseUrl: string
-  private fetch: typeof fetch
+  private fetch: any
   headers: Record<string, string>
 
   constructor(options?: ModrinthClientOptions) {
     this.baseUrl = options?.baseUrl ?? 'https://api.modrinth.com'
     this.headers = options?.headers || {}
-    this.fetch = options?.fetch || ((...args) => fetch(...args))
+    this.fetch = options?.fetch || ((...args: any[]) => (fetch as any)(...args))
   }
 
   /**
@@ -687,3 +687,6 @@ export class ModrinthV2Client {
     return result
   }
 }
+
+
+

@@ -115,7 +115,7 @@ export async function download(options: DownloadOptions): Promise<void> {
 
   const fd = await openFd(options.pendingFile || options.destination)
   signal?.throwIfAborted()
-  const errors = []
+  const errors: any[] = []
 
   try {
     for (const url of urls) {
@@ -195,3 +195,4 @@ async function openFd(output: string) {
   })
   return fd
 }
+

@@ -525,7 +525,7 @@ export interface CurseforgeClientOptions {
   /**
    * The fetch function to use. The default is `fetch`
    */
-  fetch?: typeof fetch
+  fetch?: any
 }
 
 export interface FingerprintMatch {
@@ -576,7 +576,7 @@ export class CurseforgeApiError extends Error {
  */
 export class CurseforgeV1Client {
   headers: Record<string, string>
-  private fetch: typeof fetch
+  private fetch: any
   private baseUrl: string
 
   constructor(
@@ -588,7 +588,7 @@ export class CurseforgeV1Client {
       ...options?.headers,
     }
     this.baseUrl = options?.baseUrl || 'https://api.curseforge.com'
-    this.fetch = options?.fetch || ((...args) => fetch(...args))
+    this.fetch = options?.fetch || ((...args: any[]) => (fetch as any)(...args))
   }
 
   /**
@@ -865,3 +865,6 @@ export function guessCurseforgeFileUrl(id: number, name: string) {
     `https://mediafiles.forgecdn.net/files/${fileId.slice(0, 4)}/${fileId.slice(4)}/${name}`,
   ]
 }
+
+
+
